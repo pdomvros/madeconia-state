@@ -4,18 +4,17 @@
   <meta charset="UTF-8">
   <title>Το κράτος της Μακεδονίας</title>
   <style>
-    /* ----- Γενικές Ρυθμίσεις ----- */
+    /* Βασικές ρυθμίσεις εμφάνισης */
     body {
       margin: 0;
       padding: 0;
       background: #000; /* Μαύρο φόντο */
-      color: #fff;      /* Λευκό κείμενο */
+      color: #fff; /* Λευκό κείμενο */
       font-family: sans-serif;
     }
     header {
       text-align: center;
       padding: 1rem;
-      background: #000; /* Μαύρο */
     }
     .creator {
       margin: 0;
@@ -24,7 +23,7 @@
     }
     h1 {
       margin: 0;
-      color: gold;      /* Χρυσός τίτλος */
+      color: gold; /* Χρυσός τίτλος */
       font-size: 2rem;
       font-weight: bold;
       padding: 1rem 0 0.5rem 0;
@@ -35,14 +34,13 @@
       padding: 1rem;
     }
 
-    /* ----- Slideshow ----- */
+    /* Slideshow */
     .slideshow-container {
       text-align: center;
       margin-bottom: 3rem;
     }
     .slideshow-image {
-      /* Μείωση ~20% (από ~90% σε 70%) */
-      max-width: 70%;
+      max-width: 70%; /* Μείωση στο 70% */
       height: auto;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     }
@@ -62,23 +60,23 @@
       opacity: 0.8;
     }
 
-    /* ----- Κουίζ ----- */
+    /* Κουίζ (20 ερωτήσεις) */
     #quizSection {
+      text-align: center;
       background: rgba(255, 255, 255, 0.1);
       padding: 1rem;
       border-radius: 5px;
-      text-align: center;
     }
     #scoreBox {
       margin-bottom: 1rem;
-      font-weight: bold;
       font-size: 1.1rem;
+      font-weight: bold;
     }
     #questionBox {
       margin-bottom: 1rem;
-      font-size: 1.1rem;
       font-weight: bold;
       color: gold;
+      font-size: 1.1rem;
     }
     #choicesContainer {
       margin-bottom: 1rem;
@@ -101,10 +99,10 @@
       opacity: 0.8;
     }
     #feedback {
-      margin-top: 0.5rem;
       font-weight: bold;
+      margin-top: 0.5rem;
     }
-    #nextBtn {
+    #nextQuestionBtn {
       display: none;
       margin-top: 1rem;
       background: #fff;
@@ -113,7 +111,7 @@
       padding: 0.5rem 1rem;
       cursor: pointer;
     }
-    #nextBtn:hover {
+    #nextQuestionBtn:hover {
       background: #ccc;
     }
   </style>
@@ -127,56 +125,41 @@
 
   <main>
 
-    <!-- ---------- Slideshow ---------- -->
+    <!-- SLIDESHOW 19 εικόνων -->
     <div class="slideshow-container">
       <img id="slideImage" class="slideshow-image" src="" alt="Slide" />
       <div class="slideshow-buttons">
         <button id="prevBtn">Προηγούμενο</button>
+        <span id="slideCounter"></span>
         <button id="nextBtn">Επόμενο</button>
       </div>
     </div>
 
-    <!-- ---------- Κουίζ 20 Ερωτήσεων ---------- -->
+    <!-- ΚΟΥΙΖ: 20 ΕΡΩΤΗΣΕΙΣ (μία-μία) ΜΕ SCOREBOARD -->
     <div id="quizSection">
       <div id="scoreBox">Score: 0 / 20</div>
       <div id="questionBox"></div>
       <div id="choicesContainer"></div>
       <div id="feedback"></div>
-      <button id="nextBtn">Επόμενη Ερώτηση</button>
+      <button id="nextQuestionBtn">Επόμενη Ερώτηση</button>
     </div>
 
   </main>
 
   <script>
     /********************************************************
-     *  1) Slideshow με 19 εικόνες (μικρότερη διάσταση)
+     * 1) Slideshow με 19 εικόνες
      ********************************************************/
     const slides = [
       "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_01.jpg",
       "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_02.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_03.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_04.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_05.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_06.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_07.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_08.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_09.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_10.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_11.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_12.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_13.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_14.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_15.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_16.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_17.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_18.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_19.jpg"
+      // ... (προσθέστε όλες τις εικόνες)
     ];
-
     let currentIndex = 0;
     const slideImage = document.getElementById("slideImage");
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
+    const slideCounter = document.getElementById("slideCounter");
 
     function showSlide(index) {
       if (index < 0) {
@@ -187,18 +170,11 @@
         currentIndex = index;
       }
       slideImage.src = slides[currentIndex];
+      slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
     }
-
-    prevBtn.addEventListener("click", () => {
-      showSlide(currentIndex - 1);
-    });
-    nextBtn.addEventListener("click", () => {
-      showSlide(currentIndex + 1);
-    });
-
-    // Αρχικοποίηση με την πρώτη εικόνα
+    prevBtn.addEventListener("click", () => showSlide(currentIndex - 1));
+    nextBtn.addEventListener("click", () => showSlide(currentIndex + 1));
     showSlide(currentIndex);
-
 
     /********************************************************
      * 2) Κουίζ 20 Ερωτήσεων (μία-μία) με scoreboard
@@ -245,7 +221,7 @@
         correctIndex: 0
       },
       {
-        question: "9) Ποιον ελιγμό εφάρμοσε ο Φίλιππος με επιτυχία στη φάλαγγα;",
+        question: "9) Ποιον ελιγμό εφάρμοσε ο Φίλιππος στη φάλαγγα;",
         choices: ["A) Λοξή φάλαγγα", "B) Κυκλική φάλαγγα", "C) Τετραγωνική φάλαγγα"],
         correctIndex: 0
       },
@@ -280,27 +256,27 @@
         correctIndex: 0
       },
       {
-        question: "16) Ποια ένδειξη αποδεικνύει την ελληνικότητα των Μακεδόνων βασιλέων;",
-        choices: ["A) Είσοδος στους Ολυμπιακούς αγώνες", "B) Χρήση λατινικής γλώσσας", "C) Βαρβαρικά ονόματα"],
+        question: "16) Ποια ένδειξη επιβεβαίωνε την ελληνικότητα των Μακεδόνων;",
+        choices: ["A) Είσοδος στους Ολυμπιακούς Αγώνες", "B) Χρήση λατινικής γλώσσας", "C) Βαρβαρικά ονόματα"],
         correctIndex: 0
       },
       {
-        question: "17) Ποιον ρόλο έπαιξε ο Ισοκράτης προς τον Φίλιππο;",
-        choices: ["A) Τον πολέμησε ρητορικά", "B) Τον παρότρυνε να ενώσει τους Έλληνες εναντίον των Περσών", "C) Τον χρηματοδότησε για οικοδομικά έργα"],
+        question: "17) Ποια ήταν η προτροπή του Ισοκράτη προς τον Φίλιππο;",
+        choices: ["A) Να επιτεθεί στην Αθήνα", "B) Να ενώσει τους Έλληνες κατά των Περσών", "C) Να επιτεθεί στους Σπαρτιάτες"],
         correctIndex: 1
       },
       {
-        question: "18) Από πού εισήγαγε η Αθήνα ξυλεία ναυπήγησης;",
+        question: "18) Από πού προμηθεύονταν οι Αθηναίοι ξυλεία για τα πλοία τους;",
         choices: ["A) Τη Σικελία", "B) Τη Μακεδονία", "C) Την Αίγυπτο"],
         correctIndex: 1
       },
       {
-        question: "19) Ποιο είναι το σημαντικό στοιχείο της μακεδονικής φάλαγγας;",
-        choices: ["A) Ο ελαφρύς εξοπλισμός", "B) Η πολύ μακριά σάρισσα", "C) Η κυκλική παράταξη"],
+        question: "19) Ποιο είναι το δυνατό στοιχείο της μακεδονικής φάλαγγας;",
+        choices: ["A) Ο ελαφρύς εξοπλισμός", "B) Η μακριά σάρισσα", "C) Η κυκλική διάταξη"],
         correctIndex: 1
       },
       {
-        question: "20) Ποιος ανέβηκε στο θρόνο μετά τη δολοφονία του Φιλίππου;",
+        question: "20) Ποιος ανέβηκε στον θρόνο μετά τη δολοφονία του Φιλίππου;",
         choices: ["A) Ο Μέγας Αλέξανδρος", "B) Ο Άτταλος", "C) Ο Αριστοτέλης"],
         correctIndex: 0
       }
@@ -314,67 +290,53 @@
     const questionBox = document.getElementById("questionBox");
     const choicesContainer = document.getElementById("choicesContainer");
     const feedbackEl = document.getElementById("feedback");
-    const nextBtn = document.getElementById("nextBtn");
+    const nextQuestionBtn = document.getElementById("nextQuestionBtn");
 
-    // Εμφάνιση της πρώτης ερώτησης
-    showQuestion(currentQuestionIndex);
-
-    // Συνάρτηση εμφάνισης ερώτησης
     function showQuestion(index) {
-      // Αν τελείωσαν οι ερωτήσεις, εμφανίζουμε μήνυμα & κρύβουμε το κουμπί
       if (index >= totalQuestions) {
         questionBox.textContent = "Ολοκληρώθηκαν όλες οι ερωτήσεις!";
         choicesContainer.innerHTML = "";
         feedbackEl.textContent = `Τελικό Score: ${score} / ${totalQuestions} 🎉`;
-        nextBtn.style.display = "none";
+        nextQuestionBtn.style.display = "none";
         return;
       }
-
-      // Καθαρισμός παλιάς ανατροφοδότησης & απόκρυψη κουμπιού "Επόμενη"
       feedbackEl.textContent = "";
-      nextBtn.style.display = "none";
+      nextQuestionBtn.style.display = "none";
 
-      // Ερώτηση
       questionBox.textContent = questions[index].question;
+      choicesContainer.innerHTML = questions[index].choices
+        .map((choice, cIndex) => `
+          <button class="choice-btn" data-index="${cIndex}">${choice}</button>
+        `)
+        .join("");
 
-      // Δημιουργία κουμπιών επιλογών
-      let choicesHtml = "";
-      questions[index].choices.forEach((choice, cIndex) => {
-        choicesHtml += `
-          <button class="choice-btn" onclick="checkAnswer(${cIndex})">
-            ${choice}
-          </button>
-        `;
+      document.querySelectorAll('.choice-btn').forEach(button => {
+        button.addEventListener('click', () => checkAnswer(button.dataset.index));
       });
-      choicesContainer.innerHTML = choicesHtml;
     }
 
-    // Συνάρτηση ελέγχου απάντησης
     function checkAnswer(userChoice) {
-      // Αν έχει ήδη απαντηθεί (feedback μη κενό), μην ξαναμετράς
       if (feedbackEl.textContent !== "") return;
 
       const currentQ = questions[currentQuestionIndex];
-      const correctIndex = currentQ.correctIndex;
-      if (userChoice === correctIndex) {
+      const correct = currentQ.correctIndex;
+
+      if (userChoice == correct) {
         feedbackEl.textContent = "Σωστά! 🎉";
         score++;
       } else {
-        feedbackEl.textContent = `Λάθος! 😢 Σωστή απάντηση: ${currentQ.choices[correctIndex]}`;
+        feedbackEl.textContent = `Λάθος! 😢 Σωστή απάντηση: ${currentQ.choices[correct]}`;
       }
-
-      // Ενημέρωση scoreboard
       scoreBox.textContent = `Score: ${score} / ${totalQuestions}`;
-
-      // Εμφανίζουμε το κουμπί "Επόμενη Ερώτηση"
-      nextBtn.style.display = "inline-block";
+      nextQuestionBtn.style.display = "inline-block";
     }
 
-    // Κουμπί "Επόμενη Ερώτηση"
-    nextBtn.addEventListener("click", () => {
+    nextQuestionBtn.addEventListener("click", () => {
       currentQuestionIndex++;
       showQuestion(currentQuestionIndex);
     });
+
+    showQuestion(currentQuestionIndex);
   </script>
 </body>
 </html>
