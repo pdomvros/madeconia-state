@@ -1,1 +1,173 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <title>Το κράτος της Μακεδονίας</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000; /* Μαύρο φόντο */
+      color: #fff;      /* Λευκό κείμενο */
+      font-family: sans-serif;
+    }
+    header {
+      text-align: center;
+      padding: 1rem;
+      background: #000; /* Μαύρο φόντο */
+    }
+    .creator {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: normal;
+    }
+    h1 {
+      margin: 0;
+      color: gold;       /* Χρυσός τίτλος */
+      font-size: 2rem;
+      font-weight: bold;
+      padding: 1rem 0 0.5rem 0;
+    }
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    section {
+      margin: 2rem 0;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+      margin: 1rem 0;
+    }
+    /* Στυλ slideshow */
+    .slideshow-container {
+      text-align: center;
+    }
+    .slideshow-image {
+      max-width: 90%;
+      height: auto;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+    .slideshow-buttons {
+      margin-top: 1rem;
+    }
+    .slideshow-buttons button {
+      background: gold;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin: 0 0.5rem;
+      cursor: pointer;
+    }
+    .slideshow-buttons button:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="creator">Δημιουργία: Παναγιώτης Δόμβρος 2025 (CC BY-NC)</p>
+    <h1>Το κράτος της Μακεδονίας</h1>
+  </header>
+
+  <main>
+
+    <!-- Slideshow 19 εικόνων -->
+    <section>
+      <h2>Slideshow: Η επέκταση της Μακεδονίας</h2>
+      <div class="slideshow-container">
+        <!-- Εμφάνιση εικόνας -->
+        <img id="slideImage" class="slideshow-image" src="" alt="Slide" />
+        <!-- Κουμπιά πλοήγησης -->
+        <div class="slideshow-buttons">
+          <button id="prevBtn">Προηγούμενο</button>
+          <button id="nextBtn">Επόμενο</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Μπορείτε να προσθέσετε κι άλλες ενότητες παρουσίασης ή κείμενα -->
+    <section>
+      <details>
+        <summary>1. Το κράτος της Μακεδονίας</summary>
+        <p>
+          Οι Μακεδόνες για πολλά χρόνια έζησαν απομονωμένοι στο βόρειο τμήμα της χώρας. Πιστοί στις παραδοσιακές τους συνήθειες διατήρησαν το θεσμό της βασιλείας...
+        </p>
+        <!-- Συνεχίστε το κείμενο της ενότητας -->
+      </details>
+    </section>
+
+    <section>
+      <details>
+        <summary>2. Η επαφή με τους άλλους Έλληνες</summary>
+        <p>
+          Οι σχέσεις των Μακεδόνων με τους νότιους Έλληνες έγιναν στενότερες μετά την απόκρουση του περσικού κινδύνου...
+        </p>
+        <!-- Συνεχίστε το κείμενο της ενότητας -->
+      </details>
+    </section>
+
+  </main>
+
+  <!-- JavaScript για το slideshow -->
+  <script>
+    // Λίστα με τα 19 αρχεία εικόνων
+    const slides = [
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_01.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_02.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_03.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_04.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_05.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_06.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_07.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_08.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_09.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_10.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_11.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_12.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_13.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_14.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_15.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_16.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_17.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_18.jpg",
+      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_19.jpg"
+    ];
+
+    let currentIndex = 0;  // δείκτης για την τρέχουσα εικόνα
+    const slideImage = document.getElementById('slideImage');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    // Συνάρτηση για εμφάνιση της τρέχουσας εικόνας
+    function showSlide(index) {
+      // Διασφαλίζουμε ότι παραμένουμε εντός των ορίων του πίνακα
+      if (index < 0) {
+        currentIndex = slides.length - 1; // πάμε στην τελευταία εικόνα αν κάνουμε prev στην αρχή
+      } else if (index >= slides.length) {
+        currentIndex = 0; // αν ξεπεράσουμε το τέλος, γυρίζουμε στην πρώτη
+      } else {
+        currentIndex = index;
+      }
+      slideImage.src = slides[currentIndex];
+    }
+
+    // Χειριστές κουμπιών
+    prevBtn.addEventListener('click', () => {
+      showSlide(currentIndex - 1);
+    });
+    nextBtn.addEventListener('click', () => {
+      showSlide(currentIndex + 1);
+    });
+
+    // Φορτώνουμε την πρώτη εικόνα
+    showSlide(currentIndex);
+  </script>
+
+</body>
+</html>
 
