@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Το κράτος της Μακεδονίας</title>
   <style>
+    /* ----- Γενικές Ρυθμίσεις ----- */
     body {
       margin: 0;
       padding: 0;
@@ -33,15 +34,17 @@
       margin: 0 auto;
       padding: 1rem;
     }
-    /* Slideshow (μείωση ~20%) */
+
+    /* ----- Slideshow ----- */
     .slideshow-container {
       text-align: center;
       margin-bottom: 3rem;
     }
     .slideshow-image {
-      max-width: 70%; /* μικρότερες διαστάσεις (από ~90% στο 70%) */
+      /* Μείωση ~20% (από ~90% σε 70%) */
+      max-width: 70%;
       height: auto;
-      box-shadow: 0 0 10px rgba(255,255,255,0.5);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     }
     .slideshow-buttons {
       margin-top: 1rem;
@@ -58,9 +61,10 @@
     .slideshow-buttons button:hover {
       opacity: 0.8;
     }
-    /* Κουίζ */
+
+    /* ----- Κουίζ ----- */
     #quizSection {
-      background: rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.1);
       padding: 1rem;
       border-radius: 5px;
       text-align: center;
@@ -68,12 +72,16 @@
     #scoreBox {
       margin-bottom: 1rem;
       font-weight: bold;
+      font-size: 1.1rem;
     }
     #questionBox {
       margin-bottom: 1rem;
       font-size: 1.1rem;
       font-weight: bold;
       color: gold;
+    }
+    #choicesContainer {
+      margin-bottom: 1rem;
     }
     .choice-btn {
       background: gold;
@@ -119,7 +127,7 @@
 
   <main>
 
-    <!-- Slideshow 19 εικόνων -->
+    <!-- ---------- Slideshow ---------- -->
     <div class="slideshow-container">
       <img id="slideImage" class="slideshow-image" src="" alt="Slide" />
       <div class="slideshow-buttons">
@@ -128,7 +136,7 @@
       </div>
     </div>
 
-    <!-- Κουίζ: 20 ερωτήσεις, 1-1 εμφάνιση, scoreboard, άμεση ανατροφοδότηση -->
+    <!-- ---------- Κουίζ 20 Ερωτήσεων ---------- -->
     <div id="quizSection">
       <div id="scoreBox">Score: 0 / 20</div>
       <div id="questionBox"></div>
@@ -140,7 +148,9 @@
   </main>
 
   <script>
-    /********** 1) Slideshow 19 εικόνων **********/
+    /********************************************************
+     *  1) Slideshow με 19 εικόνες (μικρότερη διάσταση)
+     ********************************************************/
     const slides = [
       "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_01.jpg",
       "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_02.jpg",
@@ -186,11 +196,13 @@
       showSlide(currentIndex + 1);
     });
 
-    // Ξεκινάμε από την 1η εικόνα
+    // Αρχικοποίηση με την πρώτη εικόνα
     showSlide(currentIndex);
 
 
-    /********** 2) Κουίζ 20 Ερωτήσεων, μία-μία, με scoreboard **********/
+    /********************************************************
+     * 2) Κουίζ 20 Ερωτήσεων (μία-μία) με scoreboard
+     ********************************************************/
     const questions = [
       {
         question: "1) Ποια ήταν η πρώτη πρωτεύουσα του Μακεδονικού κράτους;",
@@ -268,7 +280,7 @@
         correctIndex: 0
       },
       {
-        question: "16) Ποια έννοια αποδεικνύει την ελληνικότητα των Μακεδόνων βασιλέων;",
+        question: "16) Ποια ένδειξη αποδεικνύει την ελληνικότητα των Μακεδόνων βασιλέων;",
         choices: ["A) Είσοδος στους Ολυμπιακούς αγώνες", "B) Χρήση λατινικής γλώσσας", "C) Βαρβαρικά ονόματα"],
         correctIndex: 0
       },
@@ -309,8 +321,8 @@
 
     // Συνάρτηση εμφάνισης ερώτησης
     function showQuestion(index) {
+      // Αν τελείωσαν οι ερωτήσεις, εμφανίζουμε μήνυμα & κρύβουμε το κουμπί
       if (index >= totalQuestions) {
-        // Τέλος κουίζ
         questionBox.textContent = "Ολοκληρώθηκαν όλες οι ερωτήσεις!";
         choicesContainer.innerHTML = "";
         feedbackEl.textContent = `Τελικό Score: ${score} / ${totalQuestions} 🎉`;
@@ -318,47 +330,47 @@
         return;
       }
 
-      // Καθαρίζουμε πεδία
+      // Καθαρισμός παλιάς ανατροφοδότησης & απόκρυψη κουμπιού "Επόμενη"
       feedbackEl.textContent = "";
       nextBtn.style.display = "none";
 
-      // Εμφανίζουμε την ερώτηση
+      // Ερώτηση
       questionBox.textContent = questions[index].question;
 
-      // Εμφανίζουμε τις επιλογές
-      let html = "";
-      questions[index].choices.forEach((choiceText, cIndex) => {
-        html += `
+      // Δημιουργία κουμπιών επιλογών
+      let choicesHtml = "";
+      questions[index].choices.forEach((choice, cIndex) => {
+        choicesHtml += `
           <button class="choice-btn" onclick="checkAnswer(${cIndex})">
-            ${choiceText}
+            ${choice}
           </button>
         `;
       });
-      choicesContainer.innerHTML = html;
+      choicesContainer.innerHTML = choicesHtml;
     }
 
     // Συνάρτηση ελέγχου απάντησης
     function checkAnswer(userChoice) {
-      const q = questions[currentQuestionIndex];
-      // Αν έχει ήδη απαντηθεί η ερώτηση, δεν κάνουμε ξανά check
+      // Αν έχει ήδη απαντηθεί (feedback μη κενό), μην ξαναμετράς
       if (feedbackEl.textContent !== "") return;
 
-      const correct = q.correctIndex;
-      if (userChoice === correct) {
+      const currentQ = questions[currentQuestionIndex];
+      const correctIndex = currentQ.correctIndex;
+      if (userChoice === correctIndex) {
         feedbackEl.textContent = "Σωστά! 🎉";
         score++;
       } else {
-        feedbackEl.textContent = `Λάθος! 😢 Σωστή απάντηση: ${q.choices[correct]}`;
+        feedbackEl.textContent = `Λάθος! 😢 Σωστή απάντηση: ${currentQ.choices[correctIndex]}`;
       }
 
       // Ενημέρωση scoreboard
       scoreBox.textContent = `Score: ${score} / ${totalQuestions}`;
 
-      // Εμφάνιση του κουμπιού "Επόμενη Ερώτηση"
+      // Εμφανίζουμε το κουμπί "Επόμενη Ερώτηση"
       nextBtn.style.display = "inline-block";
     }
 
-    // Όταν πατηθεί "Επόμενη Ερώτηση"
+    // Κουμπί "Επόμενη Ερώτηση"
     nextBtn.addEventListener("click", () => {
       currentQuestionIndex++;
       showQuestion(currentQuestionIndex);
