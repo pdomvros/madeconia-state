@@ -59,6 +59,11 @@
     .slideshow-buttons button:hover {
       opacity: 0.8;
     }
+    #slideCounter {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 0 1rem;
+    }
 
     /* Κουίζ (20 ερωτήσεις) */
     #quizSection {
@@ -151,9 +156,25 @@
      * 1) Slideshow με 19 εικόνες
      ********************************************************/
     const slides = [
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_01.jpg",
-      "21-Το κράτος της Μακεδονίας - Η επέκταση της Μακεδονίας_Page_02.jpg",
-      // ... (προσθέστε όλες τις εικόνες)
+      "https://via.placeholder.com/800x600.png?text=Slide+1",
+      "https://via.placeholder.com/800x600.png?text=Slide+2",
+      "https://via.placeholder.com/800x600.png?text=Slide+3",
+      "https://via.placeholder.com/800x600.png?text=Slide+4",
+      "https://via.placeholder.com/800x600.png?text=Slide+5",
+      "https://via.placeholder.com/800x600.png?text=Slide+6",
+      "https://via.placeholder.com/800x600.png?text=Slide+7",
+      "https://via.placeholder.com/800x600.png?text=Slide+8",
+      "https://via.placeholder.com/800x600.png?text=Slide+9",
+      "https://via.placeholder.com/800x600.png?text=Slide+10",
+      "https://via.placeholder.com/800x600.png?text=Slide+11",
+      "https://via.placeholder.com/800x600.png?text=Slide+12",
+      "https://via.placeholder.com/800x600.png?text=Slide+13",
+      "https://via.placeholder.com/800x600.png?text=Slide+14",
+      "https://via.placeholder.com/800x600.png?text=Slide+15",
+      "https://via.placeholder.com/800x600.png?text=Slide+16",
+      "https://via.placeholder.com/800x600.png?text=Slide+17",
+      "https://via.placeholder.com/800x600.png?text=Slide+18",
+      "https://via.placeholder.com/800x600.png?text=Slide+19"
     ];
     let currentIndex = 0;
     const slideImage = document.getElementById("slideImage");
@@ -328,13 +349,13 @@
         feedbackEl.textContent = `Λάθος! 😢 Σωστή απάντηση: ${currentQ.choices[correct]}`;
       }
       scoreBox.textContent = `Score: ${score} / ${totalQuestions}`;
-      nextQuestionBtn.style.display = "inline-block";
-    }
 
-    nextQuestionBtn.addEventListener("click", () => {
-      currentQuestionIndex++;
-      showQuestion(currentQuestionIndex);
-    });
+      // Αυτόματη εμφάνιση της επόμενης ερώτησης μετά από 2 δευτερόλεπτα
+      setTimeout(() => {
+        currentQuestionIndex++;
+        showQuestion(currentQuestionIndex);
+      }, 2000); // 2 δευτερόλεπτα καθυστέρηση
+    }
 
     showQuestion(currentQuestionIndex);
   </script>
